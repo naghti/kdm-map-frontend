@@ -3,7 +3,7 @@ import styles from "./CommonPoint.module.css";
 import {nextConfig} from "../../next.config";
 
 const CommonPoint = ({info}) => {
-    const backImg = nextConfig.URL + info.photos[0]
+    const backImg = nextConfig.API_URL + info.photos[0]
 
 
     return (
