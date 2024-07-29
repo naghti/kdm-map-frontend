@@ -8,7 +8,7 @@ const PointActive = ({info}) => {
     const {activePointer, changeActivePointer} = usePointsStore()
 
     const availableArray = JSON.parse(info.accessibility[0])
-    const backImg = nextConfig.URL + info.photos[0]
+    const backImg = nextConfig.API_URL + info.photos[0]
 
     function click (event) {
         event.stopPropagation()
