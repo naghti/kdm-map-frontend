@@ -1,0 +1,8 @@
+.text {
+    background: linear-gradient(90deg, #7A41D7 0%, #481D8E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 0 15px;
+}

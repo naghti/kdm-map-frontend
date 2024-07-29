@@ -1,0 +1,12 @@
+.button {
+    height: 50px;
+    border-radius: 0.375rem;
+    color: white;
+    border: none;
+    font-size: 34px;
+    font-weight: 700;
+    font-family: "Alumni Sans", sans-serif;
+    max-width: 160px;
+    margin: 10px 0;
+    background: linear-gradient(180deg, #8E2ACB 0%, #481D8E 100%);
+}

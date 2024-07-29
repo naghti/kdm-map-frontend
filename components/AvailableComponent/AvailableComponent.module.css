@@ -1,0 +1,29 @@
+.availableComponent {
+    padding: 5px 10px;
+    display: flex;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.infoHeader {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.availableImg {
+    width: 40px;
+}
+
+.availableDescription {
+    color: rgba(122, 65, 215, 1);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+
+}
