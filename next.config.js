@@ -1,6 +1,6 @@
 
 const nextConfig = {
-    URL: "http://193.168.46.239:5000/",
+    API_URL: "http://193.168.46.239:5000/",
     filterByTypeStockValue: "Тип учреждения",
     filterByNosologicalStockValue: "Нозологическая группа",
     nosologicalGroup: {
