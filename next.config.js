@@ -1,6 +1,6 @@
 
 const nextConfig = {
-    URL: "http://localhost:5000/",
+    URL: "http://193.168.46.239:5000/",
     filterByTypeStockValue: "Тип учреждения",
     filterByNosologicalStockValue: "Нозологическая группа",
     nosologicalGroup: {

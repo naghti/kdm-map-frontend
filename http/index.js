@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 
 
 const $host = axios.create({
-    baseURL: nextConfig.URL
+    baseURL: nextConfig.API_URL
 })
 
 export {
