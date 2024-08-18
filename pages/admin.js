@@ -92,7 +92,7 @@ const Admin = () => {
             console.log(formData)
             const response = await create(data);
 
-            setFormData(formDataStatic)
+            // setFormData(formDataStatic)
             getPoints()
 
 
@@ -127,6 +127,7 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="Улица"
+
                             onChange={(e) => setFormData({...formData, street: e.target.value})}
                         />
                     </div>
