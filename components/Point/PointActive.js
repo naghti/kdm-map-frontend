@@ -5,6 +5,7 @@ import {nextConfig} from "../../next.config";
 import {usePointsStore} from "../../store/Store";
 
 const PointActive = ({info}) => {
+    console.log(info)
     const {activePointer, changeActivePointer} = usePointsStore()
 
     const availableArray = JSON.parse(info.accessibility[0])
@@ -23,6 +24,7 @@ const PointActive = ({info}) => {
             <div style={{textAlign: "center"}}>
                 <span className={styles.name}>{info.name}</span>
             </div>
+
             <img
                 className={styles.pointImage}
                 src={backImg}
@@ -33,6 +35,13 @@ const PointActive = ({info}) => {
             >
                 {info.type}
             </span>
+
+            <span
+                className={styles.pointStreet}
+            >
+                {info.street}
+            </span>
+
             <span
                 className={styles.pointDescription}
             >

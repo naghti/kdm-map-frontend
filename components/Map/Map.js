@@ -12,27 +12,32 @@ const Map = () => {
         height: 550,
     }
 
-    let coordinates = Object.keys(activePointer).length ? JSON.parse(activePointer.coordinates[0]) : [56.47476305742789, 84.96281533862974]
+    let coordinates = Object.keys(activePointer).length ? JSON.parse(activePointer.coordinates[0]) : [54.98320158443135, 82.8964193250456]
     const initialState = {
         title: "",
         center: coordinates,
         zoom: Object.keys(activePointer).length ? 17 : 13,
     };
 
+
     const pointClick = (point) => {
         changeActivePointer(point)
         const pointBlock = document.getElementById(`pointBlock` + point.id)
-        if (pointBlock) {
-            pointBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (pointBlock) {            
+            pointBlock.scrollIntoView({ behavior: 'smooth', block: 'start', inline: "start" });
         }
     }
 
+
     return (
-        <YMaps query={{ apikey: "4fe426f0-a351-4ef2-b397-61b55556993f", lang: "ru_RU"}}>
+        <>
+        <YMaps 
+            query={{ apikey: "4fe426f0-a351-4ef2-b397-61b55556993f", lang: "ru_RU"}}
+        >
             <MapBox
                 {...MapOptions}
                 state={initialState}
-                defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+                defaultState={{ center: [54.98320158443135, 82.8964193250456], zoom: 9 }}
             >
                 <Clusterer
                     options={{
@@ -44,6 +49,7 @@ const Map = () => {
                         points.map((point, index) => (
                             <Placemark
                                 key={index}
+                                modules={[ 'geoObject.addon.balloon', 'geoObject.addon.hint' ]}
                                 geometry={JSON.parse(point.coordinates[0])}
                                 onClick={() => pointClick(point)}
                             />
@@ -52,7 +58,9 @@ const Map = () => {
                 </Clusterer>
             </MapBox>
         </YMaps>
+        </>
     );
 };
+
 
 export default Map;

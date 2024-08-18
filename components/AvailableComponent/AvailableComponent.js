@@ -34,11 +34,13 @@ const AvailableComponent = ({name, available, description}) => {
 
     return (
         <div className={styles.availableComponent}>
-            <Image
-                className={styles.availableImg}
-                src={currentImage}
-                alt={"icon"}
-            />
+            <div className={styles.imageBox}>
+                <Image
+                    className={styles.availableImg}
+                    src={currentImage}
+                    alt={"icon"}
+                />
+            </div>
             <div className={styles.infoBox}>
                 <span
                     className={styles.infoHeader}

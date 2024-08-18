@@ -19,6 +19,14 @@
     width: 40px;
 }
 
+.imageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+}
+
 .availableDescription {
     color: rgba(122, 65, 215, 1);
     font-size: 14px;

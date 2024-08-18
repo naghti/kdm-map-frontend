@@ -14,6 +14,8 @@ import PointActive from "../components/Point/PointActive";
 import {getAll} from "../http/pointAPI";
 import {nextConfig} from "../next.config";
 import Head from 'next/head';
+import Loader from '../components/Loader/Loader';
+import PointsList from '../components/PointsList';
 
 
 const Index = () => {
@@ -32,7 +34,7 @@ const Index = () => {
     points.map(point => PointsTypes.add(point.type))
     PointsTypes = Array.from(PointsTypes)
 
-    return (
+        return (
         <>
             <Head>
                 <meta name="keywords" content="Сайт мест досуга по Пушкинской карте для маломобильных граждан" />
@@ -44,7 +46,7 @@ const Index = () => {
         <BoxPosition>
             <Navbar />
             <Map/>
-            <BoxWidth style={{padding: "0 40px"}}>
+            <BoxWidth className={"contentBox"}>
                 <div style={{padding: "30px 0", display: "flex", justifyContent:"space-between"}} className={" flex-column flex-md-row"}>
                     <FilterByText
                         changedFunction={changeFilterByText}
@@ -88,14 +90,7 @@ const Index = () => {
                 <div 
                     style={{display: "flex", flexWrap: "wrap", margin: "20px 0 50px"}}
                 >
-                    {
-                        filteredPoints.map((point, index) => (
-                            <Point
-                                key={index}
-                                info={point}
-                            />
-                        ))
-                    }
+                <PointsList/>
                 </div>
             </BoxWidth>
             <Footer/>

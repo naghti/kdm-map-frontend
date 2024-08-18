@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* border: 1px solid red; */
 }
 
 .form-select {
@@ -48,6 +49,21 @@
     display: none;
 }
 
+/* 
+.ymaps-2-1-79-balloon {
+    box-shadow: none !important;
+}
+  
+.ymaps-2-1-79-balloon__content {
+    padding: 0 !important;
+    background: transparent !important;
+    margin: 0 !important;
+}
+  
+.ymaps-2-1-79-balloon__layout {
+    background: transparent !important;
+    border: none !important;
+} */
 
 .point-enter {
     opacity: 0;
@@ -66,7 +82,29 @@
     transform: scale(0.9);
     transition: opacity 600ms, transform 600ms;
 }
-  
+.modal-dialog {
+    width: 50%;
+}
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentBox {
+    padding: 0 40px;
+}
+
+.card {
+    margin: 0 20px;
+    display: block!important;
+}
+
+@media (max-width: 400px) {
+    .contentBox {
+        padding: 0 15px !important;
+    }
+}
 
 @media (max-width: 500px) {
     #contactInfo1::before {

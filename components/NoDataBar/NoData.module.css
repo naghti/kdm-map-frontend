@@ -1,0 +1,13 @@
+.noData {
+    min-height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    color: #481D8E;
+    font-size: 32px;
+    font-weight: 500;
+}

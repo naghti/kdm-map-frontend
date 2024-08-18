@@ -3,14 +3,18 @@ import {create, getAll} from "../http/pointAPI";
 import {useEffect, useState} from "react";
 import {usePointsStore} from "../store/Store";
 import Input from "../components/Input/Input";
+import AdminModal from "../components/Modals/AdminModal";
+import AdminPointsList from "../components/AdminPointsList";
+import {CSSTransition, TransitionGroup} from "react-transition-group"
 
 const Admin = () => {
     const {points, changePoints, changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
     const [formData, setFormData] = useState({
         name: "",
         description: "",
+        street: "",
         coordinates: [],
-        type: "Магазины",
+        type: "",
         accessibility: [
             {
                 available: 2,
@@ -44,6 +48,7 @@ const Admin = () => {
     let PointsTypes = new Set()
     points.map(point => PointsTypes.add(point.type))
     PointsTypes = Array.from(PointsTypes)
+    formData.type = PointsTypes[0]
 
 
     const [formDataStatic, setFormDataStatic] = useState(formData)
@@ -63,12 +68,14 @@ const Admin = () => {
     }
 
     const submit = async (e) => {
-             e.preventDefault()
-    
+            e.preventDefault()
+            
             const data = new FormData();
             data.append('name', formData.name);
             data.append('description', formData.description);
             data.append('type', formData.type);
+            data.append('street', formData.street);
+            
             
             formData.coordinates = formData.coordinates.split(",").map(item => Number(item))
             formData.coordinates = JSON.stringify(formData.coordinates)
@@ -78,11 +85,15 @@ const Admin = () => {
             data.append('accessibility', formData.accessibility);
             
             data.append('photos', formData.photos);
-            
-            const response = await create(data);
-            console.log(response)
 
-            // setFormData(formDataStatic)
+            data.append('pass', localStorage.getItem("pass"));
+
+            
+            console.log(formData)
+            const response = await create(data);
+
+            setFormData(formDataStatic)
+            getPoints()
 
 
     }
@@ -97,6 +108,8 @@ const Admin = () => {
 
 
     return (
+        <>
+        <AdminModal/>
         <div style={{padding: 20}}>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -106,6 +119,15 @@ const Admin = () => {
                             type="text"
                             placeholder="Название"
                             onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        />
+                    </div>
+
+                    <div style={{margin: "20px 0"}}>
+                        <Form.Label>Улица</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Улица"
+                            onChange={(e) => setFormData({...formData, street: e.target.value})}
                         />
                     </div>
 
@@ -126,7 +148,7 @@ const Admin = () => {
                             onChange={(e) => setCoordinates(e.target.value)}
                         />
                         <Form.Text className="text-muted">
-                            координаты из гугла.
+                            координаты из гугла. (типа 56.47648466138119, 84.97856675579699)
                         </Form.Text>
                     </div>
 
@@ -256,6 +278,33 @@ const Admin = () => {
                 </Button>
             </Form>
         </div>
+        <TransitionGroup>
+            <div
+                style={{
+                    display:"flex",
+                    width:"100vw",
+                    overflow:"auto"
+                }}
+            >
+                {
+                    points.map((point, index) => (
+                        <div style={{width: 300, margin: "0 20px"}}>
+                            <CSSTransition
+                                timeout={500}
+                                classNames={"point"}
+                                key={index}
+                            >
+                                    <AdminPointsList 
+                                        info={point}
+                                        fReload={getPoints}
+                                    />
+                            </CSSTransition>
+                        </div>
+                    ))
+                }
+            </div>
+        </TransitionGroup>
+        </>
 
     );
 };

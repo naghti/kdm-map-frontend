@@ -23,6 +23,7 @@
     border-radius: 0.375rem;
     margin-bottom: 15px;
 }
+
 .pointType {
     font-size: 16px;
     font-weight: 500;
@@ -30,6 +31,15 @@
     text-align: left;
     color: rgba(72, 29, 142, 1);
 }
+
+.pointStreet {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: rgb(62, 29, 116);
+}
+
 .pointDescription {
     font-size: 20px;
     font-weight: 500;

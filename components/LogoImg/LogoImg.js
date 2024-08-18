@@ -6,7 +6,6 @@ const LogoImg = () => {
         <>
             <Image
                 src={LogoImage}
-                width={104}
                 height={84}
                 alt={'логотип'}
             />

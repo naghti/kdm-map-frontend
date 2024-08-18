@@ -1,0 +1,6 @@
+.modalBox {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(66, 46, 241, 0.473);
+}
