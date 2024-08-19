@@ -50,7 +50,7 @@ const Map = () => {
                             <Placemark
                                 key={index}
                                 modules={[ 'geoObject.addon.balloon', 'geoObject.addon.hint' ]}
-                                geometry={JSON.parse(point.coordinates[0])}
+                                geometry={JSON.parse(point.coordinates)}
                                 onClick={() => pointClick(point)}
                             />
                         ))

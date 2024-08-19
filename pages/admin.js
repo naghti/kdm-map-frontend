@@ -79,6 +79,7 @@ const Admin = () => {
             
             let newCoordinates = formData.coordinates
             newCoordinates = newCoordinates.split(",").map(item => Number(item))
+            newCoordinates = JSON.stringify(newCoordinates)
 
             let newAccessibility = formData.accessibility
             newAccessibility = JSON.stringify(formData.accessibility)
