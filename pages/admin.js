@@ -6,7 +6,6 @@ import Input from "../components/Input/Input";
 import AdminModal from "../components/Modals/AdminModal";
 import AdminPointsList from "../components/AdminPointsList";
 import {CSSTransition, TransitionGroup} from "react-transition-group"
-import { edgeServerAppPaths } from "next/dist/build/webpack/plugins/pages-manifest-plugin";
 
 const Admin = () => {
     const {points, changePoints, changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
@@ -96,12 +95,10 @@ const Admin = () => {
             console.log(formData)
             const response = await create(data);
 
-            // setFormData(formDataStatic)
             getPoints()
-            document.getElementById("adminForm").reset();
         } catch (e) {
             alert (e)
-            console.log(edgeServerAppPaths)
+            console.log(e)
         }
 
 
@@ -128,7 +125,6 @@ const Admin = () => {
                 <Form.Group 
                     className="mb-3" 
                     controlId="formBasicEmail"
-                    id={"adminForm"}
                 >
                     <div style={{margin: "20px 0"}}>
                         <Form.Label>Название</Form.Label>
