@@ -34,6 +34,7 @@ const Index = () => {
     points.map(point => PointsTypes.add(point.type))
     PointsTypes = Array.from(PointsTypes)
 
+
         return (
         <>
             <Head>
