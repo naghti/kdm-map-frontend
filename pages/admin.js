@@ -6,6 +6,7 @@ import Input from "../components/Input/Input";
 import AdminModal from "../components/Modals/AdminModal";
 import AdminPointsList from "../components/AdminPointsList";
 import {CSSTransition, TransitionGroup} from "react-transition-group"
+import { edgeServerAppPaths } from "next/dist/build/webpack/plugins/pages-manifest-plugin";
 
 const Admin = () => {
     const {points, changePoints, changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
@@ -34,6 +35,7 @@ const Admin = () => {
         ],
         photos: null
     })
+    // const [formDataStatic, setFormDataStatic] = useState(formData)
     
     
     const getPoints = async () => {
@@ -50,7 +52,6 @@ const Admin = () => {
     PointsTypes = Array.from(PointsTypes)
 
 
-    const [formDataStatic, setFormDataStatic] = useState(formData)
 
     const updateDescription = (typeIndex, index, newDescription) => {
         const oldDescription = formData.accessibility[typeIndex].description
@@ -67,6 +68,8 @@ const Admin = () => {
     }
 
     const submit = async (e) => {
+        try {
+
             e.preventDefault()
             
             const data = new FormData();
@@ -75,13 +78,15 @@ const Admin = () => {
             data.append('type', formData.type);
             data.append('street', formData.street);
             
+            let newCoordinates = formData.coordinates
+            newCoordinates = newCoordinates.split(",").map(item => Number(item))
+            newCoordinates = JSON.stringify(formData.coordinates)
+
+            let newAccessibility = formData.accessibility
+            newAccessibility = JSON.stringify(formData.accessibility)
             
-            formData.coordinates = formData.coordinates.split(",").map(item => Number(item))
-            formData.coordinates = JSON.stringify(formData.coordinates)
-            formData.accessibility = JSON.stringify(formData.accessibility)
-            
-            data.append('coordinates', formData.coordinates);
-            data.append('accessibility', formData.accessibility);
+            data.append('coordinates', newCoordinates);
+            data.append('accessibility', newAccessibility);
             
             data.append('photos', formData.photos);
 
@@ -93,6 +98,11 @@ const Admin = () => {
 
             // setFormData(formDataStatic)
             getPoints()
+            document.getElementById("adminForm").reset();
+        } catch (e) {
+            alert (e)
+            console.log(edgeServerAppPaths)
+        }
 
 
     }
@@ -115,7 +125,11 @@ const Admin = () => {
         <AdminModal/>
         <div style={{padding: 20}}>
             <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group 
+                    className="mb-3" 
+                    controlId="formBasicEmail"
+                    id={"adminForm"}
+                >
                     <div style={{margin: "20px 0"}}>
                         <Form.Label>Название</Form.Label>
                         <Form.Control
