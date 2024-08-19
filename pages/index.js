@@ -42,7 +42,7 @@ const Index = () => {
                 <meta name="description" content="Культурный Доступный Мой - сайт, посвященный доступным культурным местам для маломобильных граждан." />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>Культурный Доступный Мой</title>
-                {/* <link rel="icon" href="/favicon.ico" /> */}
+                <link rel="icon" href={"/favicon.ico"} />
             </Head>
         <BoxPosition>
             <Navbar />

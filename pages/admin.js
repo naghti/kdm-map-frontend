@@ -48,7 +48,6 @@ const Admin = () => {
     let PointsTypes = new Set()
     points.map(point => PointsTypes.add(point.type))
     PointsTypes = Array.from(PointsTypes)
-    formData.type = PointsTypes[0]
 
 
     const [formDataStatic, setFormDataStatic] = useState(formData)
@@ -104,6 +103,10 @@ const Admin = () => {
 
     const setPhoto = (photo) => {
         setFormData({...formData, photos: photo})
+    }
+
+    const setType = (value) => {
+        setFormData({...formData, type: value})
     }
 
 
@@ -168,13 +171,13 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="тип учреждения"
-                            onChange={(e) => setFormData({...formData, type: e.target.value})}
+                            onChange={(e) => setType(e.target.value) }
                         />
                         <Form.Text className="text-muted">
                             писать только если нужно добавить что-то новое, иначе выбор из селекта ниже
                         </Form.Text>
                         <Form.Select
-                            onChange={(e) => setFormData({...formData, type: e.target.value})}
+                            onChange={(e) => setType(e.target.value)}
                         >
                             {
                                 PointsTypes.map((point, index) => (
