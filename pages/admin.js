@@ -6,9 +6,11 @@ import Input from "../components/Input/Input";
 import AdminModal from "../components/Modals/AdminModal";
 import AdminPointsList from "../components/AdminPointsList";
 import {CSSTransition, TransitionGroup} from "react-transition-group"
+import { adminValidation } from "../validations/AdminValidation";
 
 const Admin = () => {
     const {points, changePoints, changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
+    // const [formDataStatic, setFormDataStatic] = useState(formData)
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -34,14 +36,12 @@ const Admin = () => {
         ],
         photos: null
     })
-    // const [formDataStatic, setFormDataStatic] = useState(formData)
     
     
     const getPoints = async () => {
         const response = await getAll();
         changePoints(response["points"] || []);
     }
-    
     useEffect(async () => {
         await getPoints()
     }, []);
@@ -50,71 +50,80 @@ const Admin = () => {
     points.map(point => PointsTypes.add(point.type))
     PointsTypes = Array.from(PointsTypes)
 
+    const submit = async (e) => {
+        e.preventDefault()
+        let isValidate = true
+        await adminValidation
+        .validate(formData)
+        .catch((err) => {
+            alert(err.errors[0]);
+            isValidate = false
+        })
+        if (!isValidate) {
+            return;
+        }
+        try {
+                const data = new FormData();
+                data.append('name', formData.name);
+                data.append('description', formData.description);
+                data.append('type', formData.type);
+                data.append('street', formData.street);
+                
+                let newCoordinates = formData.coordinates
+                newCoordinates = newCoordinates.split(",").map(item => Number(item))
+                newCoordinates = JSON.stringify(newCoordinates)
 
+                let newAccessibility = formData.accessibility
+                newAccessibility = JSON.stringify(formData.accessibility)
+                
+                data.append('coordinates', newCoordinates);
+                data.append('accessibility', newAccessibility);
+                data.append('photos', formData.photos);
+                data.append('pass', localStorage.getItem("pass"));
 
-    const updateDescription = (typeIndex, index, newDescription) => {
-        const oldDescription = formData.accessibility[typeIndex].description
-        oldDescription[index] = newDescription
+                
+                console.log(formData)
+                const response = await create(data);
 
-        setFormData(formData)
-    };
-
+                getPoints()
+            } catch (e) {
+                alert (e)
+                console.log(e)
+            }
+    }
+    
+    const setName = (string) => {
+        setFormData({...formData, name: string.trim()})
+    }
+    const setDescription = (string) => {
+        setFormData({...formData, description: string.trim()})
+    }
+    const setStreet = (string) => {
+        setFormData({...formData, street: string.trim()})
+    }
+    const setCoordinates = (string) => {
+        setFormData({...formData, coordinates: string.trim()})
+    }
+    const setType = (value) => {
+        if (value == "default") return;
+        setFormData({...formData, type: value})
+    }
     const updateAvailable = (availableIndex, index) => {
         const oldDescription = formData.accessibility[availableIndex]
         oldDescription.available = Number(index)
 
         setFormData(formData)
     }
+    const updateDescription = (typeIndex, index, newDescription) => {
+        const oldDescription = formData.accessibility[typeIndex].description
+        oldDescription[index] = newDescription.trim()
 
-    const submit = async (e) => {
-        try {
-
-            e.preventDefault()
-            
-            const data = new FormData();
-            data.append('name', formData.name);
-            data.append('description', formData.description);
-            data.append('type', formData.type);
-            data.append('street', formData.street);
-            
-            let newCoordinates = formData.coordinates
-            newCoordinates = newCoordinates.split(",").map(item => Number(item))
-            newCoordinates = JSON.stringify(newCoordinates)
-
-            let newAccessibility = formData.accessibility
-            newAccessibility = JSON.stringify(formData.accessibility)
-            
-            data.append('coordinates', newCoordinates);
-            data.append('accessibility', newAccessibility);
-            
-            data.append('photos', formData.photos);
-
-            data.append('pass', localStorage.getItem("pass"));
-
-            
-            console.log(formData)
-            const response = await create(data);
-
-            getPoints()
-        } catch (e) {
-            alert (e)
-            console.log(e)
-        }
-
-
-    }
-
-    const setCoordinates = (string) => {
-        setFormData({...formData, coordinates: string})
-    }
-
+        setFormData(formData)
+    };
     const setPhoto = (photo) => {
         setFormData({...formData, photos: photo})
     }
 
-    const setType = (value) => {
-        setFormData({...formData, type: value})
-    }
 
 
     return (
@@ -131,7 +140,7 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="Название"
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
@@ -140,8 +149,7 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="Улица"
-
-                            onChange={(e) => setFormData({...formData, street: e.target.value})}
+                            onChange={(e) => setStreet(e.target.value)}
                         />
                     </div>
 
@@ -150,7 +158,7 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="описание"
-                            onChange={(e) => setFormData({...formData, description: e.target.value})}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
@@ -181,7 +189,7 @@ const Admin = () => {
                         <Form.Control
                             type="text"
                             placeholder="тип учреждения"
-                            onChange={(e) => setType(e.target.value) }
+                            onChange={(e) => setType(e.target.value)}
                         />
                         <Form.Text className="text-muted">
                             писать только если нужно добавить что-то новое, иначе выбор из селекта ниже
@@ -189,6 +197,9 @@ const Admin = () => {
                         <Form.Select
                             onChange={(e) => setType(e.target.value)}
                         >
+                            <option value={"default"}>
+                                тип учреждения
+                            </option>
                             {
                                 PointsTypes.map((point, index) => (
                                     <option
@@ -282,6 +293,7 @@ const Admin = () => {
                     </div>
 
                 </Form.Group>
+
 
                 <Button
                     variant="primary"
