@@ -22,7 +22,7 @@ const Map = () => {
 
     const pointClick = (point) => {
         changeActivePointer(point)
-        const pointBlock = document.getElementById(`pointBlock` + point.id)
+        const pointBlock = document.getElementById(`pointBlock` + point._id)
         if (pointBlock) {            
             pointBlock.scrollIntoView({ behavior: 'smooth', block: 'start', inline: "start" });
         }

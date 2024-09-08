@@ -86,7 +86,7 @@ const Index = () => {
                     <Button text={"ПОИСК"}/>
                 </div>
                 <div className={"display-5"}>
-                    <GradientText>Учреждения культуры и досуга Новосибирска и НСО, участвущие в программе “Пушкинская карта”:</GradientText>
+                    <GradientText>Учреждения культуры и досуга Новосибирска и НСО, участвующие в программе “Пушкинская карта”:</GradientText>
                 </div>
                 <div 
                     style={{display: "flex", flexWrap: "wrap", margin: "20px 0 50px"}}

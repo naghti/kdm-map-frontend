@@ -11,7 +11,7 @@ const Point = ({info}) => {
         <div
             className={"col-md-6 col-12"}
             onClick={() => changeActivePointer(info)}
-            id={"pointBlock" + info.id}
+            id={"pointBlock" + info._id}
         >
             <TransitionGroup>
                 {
