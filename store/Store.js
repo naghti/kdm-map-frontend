@@ -8,7 +8,11 @@ export const usePointsStore = create((set, get) => ({
     filterByType: nextConfig.filterByTypeStockValue,
     filterByNosological: nextConfig.filterByNosologicalStockValue,
     activePointer: {},
+    visitsAmount: 0,
 
+    changeVisitsAmount: (value) => set(() => ({
+        visitsAmount: value
+    })),
     changePoints: (array) => set(() => ({
         points: array,
         filteredPoints: array,

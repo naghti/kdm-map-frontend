@@ -5,6 +5,7 @@ import BoxWidth from "../Box/BoxWidth";
 import PointImg  from "../../assets/point.svg"
 import LetterImg  from "../../assets/letter.svg"
 import BellImg  from "../../assets/bell.svg"
+import LinkImg  from "../../assets/link.svg"
 import Image from "next/image";
 
 const Footer = () => {
@@ -57,6 +58,14 @@ const Footer = () => {
                                     style={{marginRight: "10px", width: 20}}
                                 />
                                 Телеграм-канал: t.me/kdm_map
+                            </GradientText>
+                            <GradientText id="contactInfo4" style={{fontSize: 15, maxWidth: 520, display: "flex"}}>
+                                <Image
+                                    src={LinkImg}
+                                    className={"d-flex d-md-none"}
+                                    style={{marginRight: "10px", width: 20, height: 20}}
+                                />
+                                Если у вас есть отзывы и предложения, напишите нам здесь: vk.com/anntymchishina
                             </GradientText>
                         </div>
                     </div>

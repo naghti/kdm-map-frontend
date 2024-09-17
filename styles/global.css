@@ -45,6 +45,15 @@
     display: flex;
     justify-content: center;
 }
+#contactInfo4::before {
+    content: url("../assets/link.svg");
+    position: absolute;
+    transform: translate(-30px,0px);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+}
 .ymaps-2-1-79-map-copyrights-promo {
     display: none;
 }
@@ -114,6 +123,9 @@
         content: "";
     }
     #contactInfo3::before {
+        content: "";
+    }
+    #contactInfo4::before {
         content: "";
     }
 }

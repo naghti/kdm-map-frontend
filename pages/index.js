@@ -16,18 +16,29 @@ import {nextConfig} from "../next.config";
 import Head from 'next/head';
 import Loader from '../components/Loader/Loader';
 import PointsList from '../components/PointsList';
+import { getVisits } from '../http/visitsAPI';
+import UsersCount from '../components/Box/usersCount';
 
 
 const Index = () => {
-    const {points, changePoints, changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
+    const {points, changePoints,changeVisitsAmount,  changeFilterByType, changeFilterByNosological, filteredPoints, changeFilterByText} = usePointsStore()
 
     const getPoints = async () => {
         const response = await getAll();
         changePoints(response["points"] || []);
     }
+    const getVisit = async () => {
+        let response = await getVisits();
 
+
+        console.log(response)
+
+        changeVisitsAmount(response)
+    }
+    
     useEffect(() => {
         getPoints()
+        getVisit()
     }, []);
 
     let PointsTypes = new Set()
@@ -93,6 +104,7 @@ const Index = () => {
                 >
                 <PointsList/>
                 </div>
+                <UsersCount/>
             </BoxWidth>
             <Footer/>
         </BoxPosition>
